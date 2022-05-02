@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR" xmlns="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <title>Lista de clientes</title>
+  </head>
+  <body>
+
+<!-- Modal
+      <div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Excluir cliente ?</h5>
+            </div>
+            <div class="modal-body">
+              <p>Tem certeza que deseja excluir o cliente ?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+Fim Modal -->
+
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container">
+        <span class="navbar-brand mb-0 h1">CRUD - Spring Boot</span>
+      </div>
+    </nav>
+    <div class="container mt-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col">
+              <h1 class="fs-5">Lista de clientes</h1>
+            </div>
+            <div class="col-2">
+              <a href="/clientes/novo">Novo cliente</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col-1">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th>CPF</th>
+                <th scope="col">Nascimento</th>
+                <th scope="col">Gênero</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="cliente : ${clientes}">
+                <th scope="row" th:text="${cliente.id}"></th>
+                <td th:text="${cliente.nome}"></td>
+                <td th:text="${cliente.email}"></td>
+                <td th:text="${cliente.cpf}"></td>
+                <td th:text="${cliente.dataNascimento}"></td>
+               	<td th:text="${cliente.generoCliente}">Masculino</td>
+                <td class = "text-center">
+                  <a class = "btn btn-link btn-xs" th:href="@{/clientes/editar/{id}(id = ${cliente.id})}">Editar</a>
+                </td>
+                <td class = "text-center">
+                  <a class = "btn btn-link btn-xs" th:href="@{/clientes/excluir/{id}(id = ${cliente.id})}">Remover</a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="12" class="text-uppercase" th:if="${#lists.isEmpty(clientes)}">Nenhum cliente encontrado !</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

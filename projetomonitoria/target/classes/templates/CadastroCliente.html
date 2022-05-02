@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	
+	<style>
+		.error{
+			color: red;
+		}
+	</style>
+	
+	<title>Cadastro de clientes</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-dark bg-dark">
+		<div class="container">
+			<span class="navbar-brand mb-0 h1">CRUD - Spring Boot</span>
+		</div>
+	</nav>
+	<div class="container mt-3">
+		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+			<span th:text="${mensagem}"></span>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<div class="row">
+					<div class="col">
+						<h1 class="fs-5">Cadastro cliente</h1>
+					</div>
+					<div class="col-2">
+						<a href="/clientes">Lista clientes</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<form action="/clientes" method="POST" th:object="${cliente}">
+					<!--
+					<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+						<div th:each="detailedError : ${#fields.detailedErrors()}">
+							<span th:text="${detailedError.message}"></span>
+						</div>
+					</div>
+					-->
+					<div class="row">
+						<input type="hidden" th:field="*{id}">
+					</div>
+					<div class="mb-3">
+						<label for="nomeCompleto" class="form-label fw-bold">Nome completo:</label>
+						<input type="text" class="form-control" id="nomeCompleto" th:field="*{nome}">
+						<p th:if="${#fields.hasErrors('nome')}" th:class="${#fields.hasErrors('nome')}? error" th:errors="*{nome}"></p>
+					</div>
+					<div class="mb-3">
+						<label for="email" class="form-label fw-bold">E-mail:</label>
+						<input type="email" class="form-control" id="email" th:field="*{email}">
+						<p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"></p>
+					</div>
+					<div class="row">
+						<div class="mb-3 col-sm-6">
+							<label for="cpf" class="form-label fw-bold">CPF:</label>
+							<input type="text" class="form-control" id="cpf" th:field=*{cpf}>
+							<p th:if="${#fields.hasErrors('cpf')}" th:errorclass="error" th:errors="*{cpf}"></p>
+						</div>
+						<div class="mb-3 col-sm-6">
+							<label for="dataNascimento" class="form-label fw-bold">Data de nascimento:</label>
+							<input type="text" class="form-control" id="dataNascimento" th:field="*{dataNascimento}">
+							<p th:if="${#fields.hasErrors('dataNascimento')}" th:errorclass="error" th:errors="*{dataNascimento}"></p>
+						</div>
+					</div>
+					 <div class="row">
+						<div class="col-sm-3">
+							<label for="select" class="mb-2 fw-bold">Gênero: </label>
+							<select class="form-select mb-3" id="select" th:field="*{generoCliente}">
+								<option  th:each="genero : ${generoCliente}" th:value="${genero}" th:text="${genero.descricao}"></option>
+							</select>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="/js/bootstrap.min.js"></script>
+</body>
+
+</html>
